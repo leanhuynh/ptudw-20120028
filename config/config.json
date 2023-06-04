@@ -18,7 +18,7 @@
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
-  },
+  },  
   "production": {
     "username": "ptudwprojectdb",
     "password": "P8MUKZS1QdIeprTU7aNLVhjF4DQL5cPu",
