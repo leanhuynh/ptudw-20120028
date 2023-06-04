@@ -5,20 +5,17 @@ const { DataTypes } = require('sequelize');
 const models = require('../models');
 
 controller.checkout = async (req, res) => {
-    // let userId = req.user.id;
-    let userId = 1;
-    res.locals.cart = req.session.cart.getCart();
-    if (req.session.cart.items.length) {
-        let userId = 1;
+    if (req.session.cart.quantity > 0) {
+        let userId = req.user.id;
         res.locals.addresses = await models.Address.findAll({where: {userId}});
-        return res.render('checkout');
+        res.locals.cart = req.session.cart.getCart();
+        res.render('checkout');
     }
     else res.redirect('/products/');
 }
 
 controller.placeorders = async (req, res) => {
-    // let userId = req.user.id;
-    let userId = 1;
+    let userId = req.user.id;
     let cart = req.session.cart;
 
     if (cart.quantity > 0) {
@@ -73,8 +70,7 @@ controller.placeorders = async (req, res) => {
 }
 
 async function saveOrders(req, res, status) {
-    // let userId = req.user.id;
-    let userId = 1;
+    let userId = req.user.id;
     let {items, ...others} = req.session.cart.getCart();
     let order = await models.Order.create({
         userId,
