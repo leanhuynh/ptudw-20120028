@@ -5,15 +5,14 @@
     "database": "ptudwprojectdb_snis",
     "host": "dpg-chu560l269vccp2k72n0-a.oregon-postgres.render.com",
     "dialect": "postgres",
+    "engines": {
+      "node":"v16.17.1"
+    },
     "dialectOptions": {
       "ssl": {
         "require": true,
         "rejectUnauthorized": false
       }
-    },
-    "engines": {
-      "npm": ">=8.0.0 <9.0.0",
-      "node": ">=16.0.0 <17.0.0"
     }
   },
   "test": {
@@ -36,7 +35,7 @@
       }
     },
     "engines": {
-      "node":"16.17.1"
+      "node":"v16.17.1"
     }
   }
 }
