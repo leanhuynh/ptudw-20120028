@@ -6,7 +6,7 @@
     "host": "dpg-chu560l269vccp2k72n0-a.oregon-postgres.render.com",
     "dialect": "postgres",
     "engines": {
-      "node":"14.17.0"
+      "node":"14.17.5"
     },
     "dialectOptions": {
       "ssl": {
@@ -35,7 +35,7 @@
       }
     },
     "engines": {
-      "node":"v16.17.1"
+      "node":"14.17.5"
     }
   }
 }
