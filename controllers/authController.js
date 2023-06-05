@@ -7,7 +7,7 @@ controller.show = (req, res) => {
     if (req.isAuthenticated()) {
         return res.redirect('/');
     }
-    res.render('login', {loginMessage: req.flash('loginMessage'), reqUrl: req.query.reqUrl});
+    res.render('login', {loginMessage: req.flash('loginMessage'), reqUrl: req.query.reqUrl, registerMessage: req.flash('registerMessage')});
 }
 
 controller.login = (req, res, next) => {
@@ -48,6 +48,26 @@ controller.isLoggedIn = (req, res, next) => {
         return next();
     }
     res.redirect(`/users/login?reqUrl=${req.originalUrl}`);
+}
+
+controller.register = (req, res, next) => {
+    let reqUrl = req.body.reqUrl ? req.body.reqUrl : '/users/my-account';
+    let cart = req.session.cart;
+    passport.authenticate('local-register', (error, user) => {
+        if (error) {
+            return next(error);
+        }
+        if (!user) {
+            return res.redirect(`/users/login?reqUrl=${reqUrl}`);
+        }
+        req.logIn(user, (error) => {
+            if (error) {
+                return next(error);
+            }
+            req.session.cart = cart;
+            res.redirect(reqUrl);
+        })
+    })(req, res, next);
 }
 
 module.exports = controller;
