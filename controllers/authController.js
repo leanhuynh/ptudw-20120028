@@ -83,7 +83,9 @@ controller.forgotPassword = async (req, res) => {
         // tao link
         const {sign} = require('./jwt');
         const host = req.header('host');
-        const resetLink = `${req.protocol}://${host}/users/reset?token=${sign(email)}&email=${email}}`;
+        const resetLink = `${req.protocol}://${host}/users/reset?token=${sign(email)}&email=${email}`;
+        console.log('hello world');
+        console.log(email);
         // gui email
         const {sendForgotPasswordMail} = require('./mail');
         sendForgotPasswordMail(user, host, resetLink).then((result) => {
@@ -115,13 +117,13 @@ controller.showResetPassword = (req, res) => {
 
 controller.resetPassword = async (req, res) => {
     let email = req.body.email;
+    console.log(email);
     let token = req.body.token;
-    console.log('hello world');
     let bcrypt = require('bcrypt');
     let password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(8));
 
     await models.User.update({password}, {where: {email}});
-    res.render('resetPassword', {done: true});
+    return res.render('resetPassword', {done: true});
 }
 
 module.exports = controller;
